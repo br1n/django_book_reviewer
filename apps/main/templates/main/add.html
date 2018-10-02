@@ -1,0 +1,50 @@
+{% extends "./layout.html" %}
+{% block title %}Books | Add Book & Review{% endblock title %}
+{% block body %}
+
+   
+    <a href="/dashboard">Home</a> | <a href="/logout">Logout</a> 
+
+    <hr>
+
+    <h4>Add New Book Title and Review:</h4>
+
+    <form action="/books/create" method="POST">
+        {% csrf_token %}
+        <p>Book Title:
+                <input type="text" name="title" placeholder="Add New Book Title">
+        </p>
+
+        <div>Author: 
+            <p>Choose from List: 
+                <select name="old_author">
+                    {% for author in authors %}
+                    <option value="{{author.name}}">{{author.name}}</option>
+                    {% endfor %}
+                </select>
+            </p>
+
+            <p>Or Add a New Author:
+                <input type="text" name="new_author" placeholder="Add New Author">
+            </p>
+        </div>
+
+        <p>Review:
+            <br>
+            <textarea name="review" cols="30" rows="10"></textarea>
+        </p>
+
+        <p>Rating:
+            <select name="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </p>
+        <input type="submit" value="Add Book and Review">
+    </form>
+
+{% endblock body %}
+

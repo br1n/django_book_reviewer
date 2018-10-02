@@ -1,0 +1,48 @@
+{% extends './layout.html' %}
+{% block title %}Books | Login & Registration{% endblock title %}
+{% block body %}
+
+    <h1>Welcome!</h1>
+    <br>
+    <h3>Register</h3>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="register">
+        <form action="/register/" method="POST">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" name="name" placeholder="Keith Richards">
+            <label for="username">Userame:</label>
+            <input type="text" name="username" placeholder="Straycat74">
+            <label for="email">Email:</label>
+            <input type="text" name="email" placeholder="email@email.com">
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Password">
+            <p>*Password must be at least 8 characters</p>
+            <label for="confirm">Confirm Password:</label>
+            <input type="password" name="confirm" placeholder="Confirm Password">
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+
+    <h3>Login</h3>
+
+    <div class="login">
+        <form action="/login/" method="POST">
+            {% csrf_token %}
+            <label for="email">Email:</label>
+            <input type="text" name="email" placeholder="email@email.com">
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Password">
+            <input type="submit" value="Login">
+        </form>
+    </div>
+{% endblock body %}

@@ -1,0 +1,41 @@
+{% extends "./layout.html" %}
+{% block title %}Books | Home{% endblock title %}
+{% block head %}{% endblock head %}
+
+{% block body %}
+      
+    <div class="header">
+           <a href="/books/add">Add a new book and review</a> | <a href="/user/{{user.id}}">My Reviews</a> | <a href="/logout">Logout</a> 
+    </div>
+
+    <hr>
+    
+    <h1>Welcome, {{user.name}}!</h1>
+
+    <div class="main">
+        <div class="top_content">
+            <h4>Recent Book Reviews</h4>
+            {% for review in latest_three %}
+            ___________________________________________
+            <div class="review">
+                <h5><a href="/books/{{review.book.id}}">{{review.book.title}}</a></h5>
+                <p>Rating: {{review.rating}} </p>
+                <p><a href="/user/{{review.user.id}}">{{review.user.name}}</a> says: "{{review.content}}"</p>
+                <p>Posted on: {{review.created_at}}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <hr>
+
+        <h4>Other Books With Reviews: </h4>
+        <div class="bottom_content">
+            {% for book in other_books %}
+                <a href="/books/{{book.id}}">{{book.title}}</a> |
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock body %}
+ 

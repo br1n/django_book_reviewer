@@ -1,0 +1,28 @@
+{% extends "./layout.html" %}
+{% block head %}{% endblock head %}
+{% block title %}Books | User Reviews{% endblock title %}
+{% block body %}
+
+    <div class="header">
+           <a href="/dashboard">Home</a> | <a href="/books/add">Add a new book and review</a> | <a href="/logout">Logout</a> 
+    </div>
+    
+    <hr>
+
+    <div class="user">
+        <h5>Username: {{user.username}} </h5>
+        <h5>Name: {{user.name}} </h5>
+        <h5>Email: {{user.email}} </h5>
+        <h5>Total Reviews:{{user.reviews.count}} </h5>
+    </div>
+    <hr>
+    <h3> {{user.name}} posted reviews on the following books:</h3>
+    {% for review in user.reviews.all %}
+        <ul class="user_reviews"> 
+            <a href="/books/{{review.book.id}}">
+                <li>{{review.book.title}} by {{review.book.author.name}}</li>
+            </a> 
+        </ul>
+    {% endfor %}
+
+{% endblock body %}

@@ -1,0 +1,54 @@
+{% extends "./layout.html" %}
+{% block title %}Books | Book & Review{% endblock title %}
+{% block head %}{% endblock head %}
+{% block body %}
+
+    <div class="header">
+        <a href="/dashboard">Home</a> | <a href="/logout">Logout</a> 
+    </div>
+    
+    <hr>
+    <h3>Title: {{book.title}} </h3>
+    <!-- book.author.name: book is connected by 'author" object name -->
+    <h3>Author: {{book.author.name}} </h3> 
+    
+    <h4>Reviews: </h4>
+    {% for review in book.reviews.all %} <!--related name setup "reviews"-->
+        
+    <div class="review">
+        ________________________________________________ 
+        <p>Rating: {{review.rating}} </p> <!--user in session is linked to "user=.." in views.py/-->
+        <p><a href="/user/{{review.user.id}}">{{review.user.name}}</a> says:" {{review.content}} "</p>
+        <p>Posted on: {{review.created_at}} </p>
+        {% if review.user.id == request.session.id %}
+            <a href="/reviews/delete/{{review.id}} ">Delete Review</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <br>
+    <form action="/reviews/create/{{book.id}}" method="POST">
+        {% csrf_token %}
+        __________________________________________________
+        <p>
+            Add a Review:
+            <br>
+            <textarea name="review" cols="30" rows="10"></textarea>
+        </p>
+
+        <p>Rating: 
+                <select name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </p>
+            <input type="submit" value="Submit Review">
+        </form>
+    </form>
+
+
+
+{% endblock body %}
